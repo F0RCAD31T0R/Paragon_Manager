@@ -9,4 +9,4 @@ bot = discord.Client(intents=intents)
 async def on_ready():
     print("Connected to discord")
 
-bot.login(open("token.txt","r").read())
+bot.login(open("../token.txt","r").read())
