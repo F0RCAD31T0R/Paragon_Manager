@@ -8,3 +8,5 @@ bot = discord.Client(intents=intents)
 @bot.event
 async def on_ready():
     print("Connected to discord")
+
+bot.login(open("token.txt","r").read())
