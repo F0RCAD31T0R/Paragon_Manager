@@ -14,10 +14,18 @@ async def ping(interaction: nextcord.Interaction):
     await interaction.send("Pong!")
 
 
-def start_server():
-    import status
-    reload(status)
+from markupsafe import escape
+from flask import Flask
 
-threading.Thread(target=start_server).start()
+app = Flask(__name__)
+
+@app.route('/status/')
+def status():
+    #f = open("./html/status/offline.html")
+    #e = f.read()
+    #f.close()
+    return "Bot is online [The server is online, this status system doesn't work properly yet.]"
+
+threading.Thread(target=app.run).start()
 
 bot.run(os.environ.get("TOKEN"))
