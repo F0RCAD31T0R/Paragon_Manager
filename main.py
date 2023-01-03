@@ -103,5 +103,4 @@ EMOJIS: {len(guild.emojis)}
 # Have you ever seen double comments? that's how you know this code is messy.
 
 
-bot.run("MTA1OTU1Nzk2NTQ2MTQ3NTM5OA.Gmk6JI.35-zSxfC7iL1m2u-JGmHc5W-TQDHV2MejVuFww")
-#bot.run(os.environ.get("TOKEN"))
+bot.run(os.environ.get("TOKEN"))
