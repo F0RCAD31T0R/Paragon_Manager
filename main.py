@@ -1,6 +1,8 @@
 import nextcord
 from nextcord.ext import commands
 import threading
+from datetime import datetime
+from datetime import timezone
 import os
 
 activity = nextcord.Activity(name='Paragon Studios', type=nextcord.ActivityType.watching)
@@ -10,9 +12,15 @@ bot = commands.Bot(activity=activity)
 async def on_ready():
     print(f'Connected to discord w/ username: {bot.user}')
 
+def UTC_datetime_to_timestamp(time):
+    return time.replace(tzinfo=timezone.utc).timestamp()
+
 @bot.slash_command(description="Pong")
 async def ping(interaction: nextcord.Interaction):
-    await interaction.send("Pong!")
+    created_at = interaction.created_at
+    new_msg = await interaction.send(content="Pong!")
+    created_at_msg = await new_msg.fetch()
+    await new_msg.edit(content=f"Pong! {UTC_datetime_to_timestamp(created_at)-UTC_datetime_to_timestamp(created_at_msg.created_at)}ms")
 
 async def find_channel_by_name(name,category):
     for channel in category.text_channels:
@@ -79,7 +87,6 @@ ROLES: {len(guild.roles)}
 EMOJIS: {len(guild.emojis)}
 ```""")
 
-
 #from markupsafe import escape
 #from flask import Flask
 #
@@ -95,4 +102,6 @@ EMOJIS: {len(guild.emojis)}
 
 # Have you ever seen double comments? that's how you know this code is messy.
 
-bot.run(os.environ.get("TOKEN"))
+
+bot.run("MTA1OTU1Nzk2NTQ2MTQ3NTM5OA.Gmk6JI.35-zSxfC7iL1m2u-JGmHc5W-TQDHV2MejVuFww")
+#bot.run(os.environ.get("TOKEN"))
