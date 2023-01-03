@@ -16,5 +16,4 @@ def start_server():
 
 threading.Thread(target=start_server).start()
 
-#bot.run("MTA1OTU1Nzk2NTQ2MTQ3NTM5OA.GDGTVR.UmVe0jEQmHQvrv9FSnk6e2SwfqNhVLw4BG5giM")
 bot.run(os.environ.get("TOKEN"))
