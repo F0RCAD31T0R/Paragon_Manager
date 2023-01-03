@@ -1,14 +1,18 @@
-import discord
+import nextcord
+from nextcord.ext import commands
 import threading
 import os
 
-intents = discord.Intents.default()
-
-bot = discord.Client(intents=intents)
+bot = commands.Bot()
 
 @bot.event
 async def on_ready():
-    print("Connected to discord")
+    print(f'Connected to discord w/ username: {bot.user}')
+
+@bot.slash_command(description="'Pong'")
+async def ping(interaction: nextcord.Interaction):
+    await interaction.send("Pong!")
+
 
 def start_server():
     import status
