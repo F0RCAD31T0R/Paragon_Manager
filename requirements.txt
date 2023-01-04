@@ -4,3 +4,4 @@ Flask==2.2.2
 nextcord==2.3.2
 datetime==4.9
 six==1.16.0
+gunicorn==20.1.0
