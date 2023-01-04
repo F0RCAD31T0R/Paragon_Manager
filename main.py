@@ -3,6 +3,7 @@ from nextcord.ext import commands
 import threading
 from datetime import datetime
 from datetime import timezone
+from six.moves import reload_module
 import os
 
 activity = nextcord.Activity(name='Paragon Studios', type=nextcord.ActivityType.watching)
@@ -20,7 +21,7 @@ async def ping(interaction: nextcord.Interaction):
     created_at = interaction.created_at
     new_msg = await interaction.send(content="Pong!")
     created_at_msg = await new_msg.fetch()
-    await new_msg.edit(content=f"Pong! {UTC_datetime_to_timestamp(created_at)-UTC_datetime_to_timestamp(created_at_msg.created_at)}ms")
+    await new_msg.edit(content=f"Pong! {round((created_at_msg.created_at.timestamp()-created_at.timestamp())*1000)}ms")
 
 async def find_channel_by_name(name,category):
     for channel in category.text_channels:
@@ -87,20 +88,10 @@ ROLES: {len(guild.roles)}
 EMOJIS: {len(guild.emojis)}
 ```""")
 
-#from markupsafe import escape
-#from flask import Flask
-#
-#app = Flask(__name__)
-#
-#@app.route('/status/')
-#def status():
-#    #f = open("./html/status/offline.html")
-#    #e = f.read()
-#    #f.close()
-#    return "Bot is online [The server is online, this status system doesn't work properly yet.]"
-# threading.Thread(target=app.run).start()
+#os.system("gunicorn server:create_app")
+os.system("gunicorn app:app")
 
 # Have you ever seen double comments? that's how you know this code is messy.
 
 
-bot.run(os.environ.get("TOKEN"))
+#bot.run(os.environ.get("TOKEN"))
