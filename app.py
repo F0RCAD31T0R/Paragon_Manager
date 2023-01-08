@@ -9,5 +9,3 @@ def index():
 
 def getapp():
     return app
-
-app.run()

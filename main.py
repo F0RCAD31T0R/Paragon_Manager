@@ -3,7 +3,6 @@ from nextcord.ext import commands
 import threading
 from datetime import datetime
 from datetime import timezone
-from six.moves import reload_module
 import os
 
 activity = nextcord.Activity(name='Paragon Studios', type=nextcord.ActivityType.watching)
