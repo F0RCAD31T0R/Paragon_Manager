@@ -90,7 +90,7 @@ EMOJIS: {len(guild.emojis)}
 
 #os.system("gunicorn server:create_app")
 def start_server():
-    os.system("gunicorn app:app")
+    os.system("gunicorn -w 4 'app:app'")
 threading.Thread(target=start_server).start()
 
 # Have you ever seen double comments? that's how you know this code is messy.
