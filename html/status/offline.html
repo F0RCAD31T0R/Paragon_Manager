@@ -5,7 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offline</title>
-    <link rel="stylesheet" href="main.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;700&display=swap');
+        * {
+            font-family: 'Roboto', sans-serif;
+        }
+        html,body {
+            background-color: rgb(20,20,50);
+        }
+        .status {
+            font-size: 2.5em;
+            transform: translateY(2em);
+        }
+        .offlinebg {
+            display:block;
+            background-image: radial-gradient(circle at center, rgb(255,0,0),rgb(150,0,0));
+            text-align: center;
+            border-radius: 5em;
+        }
+        .offline {
+            font-size: 7.5em;
+            transform: translateY(-0.5em);
+        }
+        .onlinebg {
+            display:block;
+            background-image: radial-gradient(circle at center, rgb(0,255,0),rgb(0,150,0));
+            text-align: center;
+            border-radius: 5em;
+        }
+        .online {
+            font-size: 7.5em;
+            transform: translateY(-0.5em);
+        }
+            </style>
 </head>
 <body>
     <div class="offlinebg"><h2 class="status">Bot is:</h2><br><h1 class="offline">Offline</h1></div>
