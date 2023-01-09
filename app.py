@@ -14,7 +14,7 @@ def index():
 
 @app.route('/status/')
 def status():
-    return json.dumps({'success':True}), 200, {'ContentType':'application/json'}
+    return online
 
 
 def getapp():
