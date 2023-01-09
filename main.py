@@ -17,7 +17,7 @@ async def find_channel_by_name(name,category):
             return channel
     return None
 
-class MainStuff(commands.cog):
+class MainStuff(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     @bot.event
@@ -25,17 +25,17 @@ class MainStuff(commands.cog):
         print(f'Connected to discord w/ username: {bot.user}')
 
     @bot.slash_command(description="Pong")
-    async def ping(interaction: nextcord.Interaction):
+    async def ping(self, interaction: nextcord.Interaction):
         created_at = interaction.created_at
         new_msg = await interaction.send(content="Pong!")
         created_at_msg = await new_msg.fetch()
         await new_msg.edit(content=f"Pong! {round((created_at_msg.created_at.timestamp()-created_at.timestamp())*1000)}ms")
 
-class TicketSystem(commands.cog):
+class TicketSystem(commands.Cog):
     def __init__(self,bot):
             self.bot = bot
     @bot.slash_command(description="Creates a report ticket. Please see <#1047503210769809458> .")
-    async def create_ticket(interaction: nextcord.Interaction):
+    async def create_ticket(self, interaction: nextcord.Interaction):
         msg_creating = await interaction.send(ephemeral=True,content="Creating Ticket...")
         ref_channel = await bot.fetch_channel("1047503210769809458")
         if await find_channel_by_name(f"ticket-{interaction.user.id}",ref_channel.category) == None:
@@ -48,7 +48,7 @@ class TicketSystem(commands.cog):
 
 
     @bot.slash_command(description="Removes a report ticket.")
-    async def remove_ticket(interaction: nextcord.Interaction):
+    async def remove_ticket(self, interaction: nextcord.Interaction):
         msg_removing = await interaction.send(ephemeral=True,content="Removing Ticket...")
         ref_channel = await bot.fetch_channel("1047503210769809458")
         currentchannel = await find_channel_by_name(f"ticket-{interaction.user.id}", ref_channel.category)
@@ -57,7 +57,7 @@ class TicketSystem(commands.cog):
         else:
             await msg_removing.edit(content=f"This is not your channel!")
 
-class HelpCommand(commands.cog):
+class HelpCommand(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     bot_slash_commands_for_help_command = [
@@ -72,19 +72,19 @@ class HelpCommand(commands.cog):
         bot_slash_commands_for_help_command_but_a_string = bot_slash_commands_for_help_command_but_a_string + f"`{command[0]}`: **{command[1]}**\n"
 
     @bot.slash_command(description="See a list of commands")
-    async def help(interaction: nextcord.Interaction):
+    async def help(self, interaction: nextcord.Interaction):
         global bot_slash_commands_for_help_command_but_a_string
         await interaction.send(ephemeral=True,content=bot_slash_commands_for_help_command_but_a_string)
 
-class Misc(commands.cog):
+class Misc(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
     @bot.slash_command(description="YOU DO NOT NEED TO SEND AN EXAMPLE")
-    async def no_examples(interaction: nextcord.Interaction):
+    async def no_examples(self, interaction: nextcord.Interaction):
         await interaction.send(content="**YOU DO NOT NEED TO SEND AN EXAMPLE!!**")
 
     @bot.slash_command(description="Info about server")
-    async def serverinfo(interaction: nextcord.Interaction):
+    async def serverinfo(self, interaction: nextcord.Interaction):
         guild = interaction.guild
         await interaction.send(ephemeral=True, content=f"""```yml
     OWNER: {guild.owner_id}
@@ -99,10 +99,10 @@ class Misc(commands.cog):
     EMOJIS: {len(guild.emojis)}
     ```""")
 
-bot.add_cog(MainStuff)
-bot.add_cog(TicketSystem)
-bot.add_cog(HelpCommand)
-bot.add_cog(Misc)
+bot.add_cog(MainStuff(bot))
+bot.add_cog(TicketSystem(bot))
+bot.add_cog(HelpCommand(bot))
+bot.add_cog(Misc(bot))
 
 def start_server():
     os.system("gunicorn -w 4 'app:app'")
