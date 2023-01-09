@@ -138,14 +138,17 @@ class AutoModeration(commands.Cog):
                 if regex.match(word.lower()):
                     await message.delete()
 
-        
 
-bot.add_cog(MainStuff(bot))
-bot.add_cog(TicketSystem(bot))
-bot.add_cog(HelpCommand(bot))
-bot.add_cog(Misc(bot))
-bot.add_cog(Welcoming(bot))
-bot.add_cog(AutoModeration(bot))
+configfile = open("bot.paraconfig","r")
+config = configfile.read()
+configfile.close()
+
+for cmd in config.split("\n"):
+    cmdlower = cmd.lower()
+    if cmdlower.startswith("- ") and " / o" in cmdlower:
+        options = cmd.split("/ ")
+        if options[1].lower() == "on":
+            exec(f"bot.add_cog({options[0][2:-1]}(bot))")
 
 def start_server():
     os.system("gunicorn -w 4 'app:app'")
