@@ -150,6 +150,26 @@ for cmd in config.split("\n"):
         if options[1].lower() == "on":
             exec(f"bot.add_cog({options[0][2:-1]}(bot))")
 
+@bot.slash_command(description="Configure bot's config")
+async def bot_config(interaction: nextcord.Interaction):
+    pass
+
+@bot_config.subcommand(description="Enables a Cog")
+async def enable_cog(interaction: nextcord.Interaction, cogname: str):
+    if interaction.user.guild_permissions.manage_channels: 
+        exec(f"bot.add_cog({cogname}(bot))")
+        await interaction.send(ephemeral=True,content="Enabled Cog")
+    else:
+        await interaction.send(ephemeral=True,content="https://tenor.com/view/perms-no-perms-gif-19925400")
+
+@bot_config.subcommand(description="Disables a Cog")
+async def disable_cog(interaction: nextcord.Interaction, cogname: str):
+    if interaction.user.guild_permissions.manage_channels:
+        exec(f"bot.remove_cog({cogname})")
+        await interaction.send(ephemeral=True,content="Disabled Cog")
+    else:
+        await interaction.send(ephemeral=True,content="https://tenor.com/view/perms-no-perms-gif-19925400")
+
 def start_server():
     os.system("gunicorn -w 4 'app:app'")
 threading.Thread(target=start_server).start()
