@@ -65,23 +65,23 @@ class TicketSystem(commands.Cog):
         else:
             await msg_removing.edit(content=f"This is not your channel!")
 
+bot_slash_commands_for_help_command = [
+    ["create_ticket", "Creates a report ticket. Please see <#1047503210769809458>."],
+    ["remove_ticket", "Removes a report ticket."],
+    ["help", "Shows this, 'See a list of commands'"],
+]
+
+bot_slash_commands_for_help_command_but_a_string = ""
+
+for command in bot_slash_commands_for_help_command:
+    bot_slash_commands_for_help_command_but_a_string = bot_slash_commands_for_help_command_but_a_string + f"`{command[0]}`: **{command[1]}**\n"
+
 class HelpCommand(commands.Cog):
     def __init__(self,bot):
         self.bot = bot
-    bot_slash_commands_for_help_command = [
-        ["create_ticket", "Creates a report ticket. Please see <#1047503210769809458>."],
-        ["remove_ticket", "Removes a report ticket."],
-        ["help", "Shows this, 'See a list of commands'"],
-    ]
-
-    bot_slash_commands_for_help_command_but_a_string = ""
-
-    for command in bot_slash_commands_for_help_command:
-        bot_slash_commands_for_help_command_but_a_string = bot_slash_commands_for_help_command_but_a_string + f"`{command[0]}`: **{command[1]}**\n"
 
     @bot.slash_command(description="See a list of commands")
     async def help(self, interaction: nextcord.Interaction):
-        global bot_slash_commands_for_help_command_but_a_string
         await interaction.send(ephemeral=True,content=bot_slash_commands_for_help_command_but_a_string)
 
 class Misc(commands.Cog):
