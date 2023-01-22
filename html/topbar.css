@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+:root {
+    --accent-1: #47CBCE;
+    --accent-2: #498ECE;
+    --accent-3: #4B73CF;
+    --accent-4: #4765CE;
+    --accent-5: #4849CF;
+
+    --background-1: #414346;
+    --background-2: #222324;
+    --background-3: #1D1D20;
+}
+
+.topbar {
+    background-color: var(--accent-5);
+    text-align: center;
+    position: absolute;
+    width: 100.6%;
+    transform: translateX(-0.6em) translateY(-0.5em);
+    height: 4em;
+}
+.topbar button {
+    background-color: rgba(0,0,0,0);
+    border: 0;
+    font-size: 1.1em;
+    width: 15%;
+    height: 100%;
+}
+.topbar button:hover {
+    transition: 0.1s;
+    color: var(--accent-1);
+}
+* {
+    font-family: 'Ubuntu Mono', monospace;
+}
